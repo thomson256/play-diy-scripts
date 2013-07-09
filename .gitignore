@@ -1,9 +1,0 @@
-logs
-project/project
-project/target
-# target # for deployment commented out
-# target/
-# target/*
-tmp
-.history
-dist
