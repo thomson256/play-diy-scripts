@@ -32,21 +32,25 @@ Deploy Play framework application to Openshift
 - Pull from openshift repo (you'll get .openshift folder)  
 	``git pull -s recursive -X theirs openshift master``
 
-- Copy [Openshift scripts](https://github.com/thomson256/play-diy-scripts) (you can inspect _openshift_deploy_,  _start_ and _load config_ if you like to see details)  
-Note for example that in gitignore the target folder is excluded.
-	``gitignore``  
-	``openshift_deploy``  
-	``.openshift/start``  
-	``.openshift/load_config``  
-
+- Copy [Openshift scripts](https://github.com/thomson256/play-diy-scripts) into your Play project folder's root (you can inspect _openshift_deploy_,  _start_ and _load config_ if you like to see details)  
+Note for example that in gitignore the target folder is excluded.  
+Resultin file structure
+	.git  
+	.openshift  
+	app  
+	conf  
+	{and the rest...}  
+	gitignore  
+	openshift_deploy  
+	
 
 - Create Openshift specific application.conf by creating _openshift.conf_ on _playshifted/conf_ and do necessary configurations which include db settings:  
-	``db.default.url="jdbc:mysql://"${OPENSHIFT_DB_HOST}":"${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}``  
-	``db.default.user=${OPENSHIFT_DB_USERNAME}``  
-	``db.default.password=${OPENSHIFT_DB_PASSWORD}``  
+	db.default.url="jdbc:mysql://"${OPENSHIFT_DB_HOST}":"${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}  
+	db.default.user=${OPENSHIFT_DB_USERNAME}    
+	db.default.password=${OPENSHIFT_DB_PASSWORD}  
 	
 - Run your Play app to see it's working  
-	``play run``
+	``play run``  
 
 
 Play app running on Openshift is now essentially configured. The following procedures need to be performed now and repeat always when you update your application.
