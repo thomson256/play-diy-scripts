@@ -6,7 +6,7 @@
 
 #java 8
 export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk/jdk1.8.0_40"
-export PATH=$JDK8_PATH:$PATH
+export PATH=$JAVA_HOME:$PATH
 
 
 # loads $PLAY_PARAMS
