@@ -11,7 +11,7 @@ fi
 
 PLAY_PARAMS=""
 
-PLAY_CONFIG_FILE="${OPENSHIFT_REPO_DIR}conf/openshift.conf"
+PLAY_CONFIG_FILE="${OPENSHIFT_REPO_DIR}/conf/openshift.conf"
 
 if [[ -f $PLAY_CONFIG_FILE ]]; then
 
