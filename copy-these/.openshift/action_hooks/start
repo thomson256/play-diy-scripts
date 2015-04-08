@@ -4,6 +4,11 @@
 # $OPENSHIFT_INTERNAL_IP:8080 
 
 
+#java 8
+export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk/jdk1.8.0_40"
+export PATH=$JDK8_PATH:$PATH
+
+
 # loads $PLAY_PARAMS
 . ${OPENSHIFT_REPO_DIR}.openshift/action_hooks/load_config
 
