@@ -4,7 +4,7 @@ play-diy-scripts
 Openshift deployment scripts for Play! app to get it running on Openshift with DIY cartridge
 
 
-Complete Play application [here](http://www.google.com).
+Complete Play application [here](https://github.com/thomson256/playshifted).
 
 
 Deploy Play framework application to Openshift
