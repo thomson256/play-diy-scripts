@@ -1,15 +1,18 @@
 play-diy-scripts
 ================
 
-Openshift deployment scripts for Play! app to get it running on Openshift
+Openshift deployment scripts for Play! app to get it running on Openshift with DIY cartridge
 
-Copy all of the contest of ``copy-these`` *including* gitignore file and paste & replace into your Play app's dir according to instructions.
+
+Complete Play application [here](http://www.google.com).
 
 
 Deploy Play framework application to Openshift
 ==============================================
 
 *Tested with Play Framework 2.3.8  Java 8*
+Have application name in openshift and locally as the same, so ${OPENSHIFT_APP_NAME} remain correct.
+
 
 - Install Openshift [command line tools](https://www.openshift.com/developers/rhc-client-tools-install)
 
@@ -32,8 +35,8 @@ Deploy Play framework application to Openshift
 - Pull from openshift repo (you'll get .openshift folder)  
 	``git pull -s recursive -X theirs openshift master``
 
-- Copy [Openshift scripts](https://github.com/thomson256/play-diy-scripts) into your Play project folder's root (you can inspect _openshift_deploy_,  _start_ and _load config_ if you like to see details)  
-Note for example that in gitignore the target folder is excluded.
+- Copy [Openshift scripts](https://github.com/thomson256/play-diy-scripts) into your Play project folder's root (you can inspect _openshift_deploy_,  _start_, _stop_ and _load config_ if you like to see details)  
+Note that ``target`` folder is _not_ excluded. This might be a matter of taste, but doing compile on desktop works better in larger projects.
 Resulting file structure
 	.git  
 	.openshift  
@@ -47,9 +50,10 @@ Resulting file structure
 	
 
 - Create Openshift specific application.conf by creating _openshift.conf_ on _playshifted/conf_ and do necessary configurations which include db settings:  
-	db.default.url="jdbc:mysql://"${OPENSHIFT_DB_HOST}":"${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}  
-	db.default.user=${OPENSHIFT_DB_USERNAME}    
-	db.default.password=${OPENSHIFT_DB_PASSWORD}  
+
+		db.default.url="jdbc:mysql://"${OPENSHIFT_DB_HOST}":"${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}  
+		db.default.user=${OPENSHIFT_DB_USERNAME}    
+		db.default.password=${OPENSHIFT_DB_PASSWORD}  
 	
 - Run your Play app to see it's working locally 
 	``activator run``  
@@ -76,4 +80,28 @@ But really you don't have to care about this.._
 
 # Java 8 update
 
-Java 8... (testing now, little todo)
+- Install Java 8 as pointed out here: 
+http://tecadmin.net/install-java-8-on-centos-rhel-and-fedora/
+
+You need to log into you Openshift shell 
+ssh 123somehash1234567@playshifted-yourdomain.rhcloud.com
+
+		cd ${OPENSHIFT_DATA_DIR}
+		wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u40-b25/jdk-8u40-linux-x64.tar.gz"
+
+		tar xzf jdk-8u40-linux-x64.tar.gz
+
+- Test Java 8
+	- Set env variable for this session:
+
+		export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk1.8.0_40"
+		export PATH=$JAVA_HOME/bin:$PATH
+	
+		java -version
+
+- Same JAVA_HOME path on ``.openshift/action_hooks/start`` so it will be always there for Play as well
+	
+		#java 8
+		export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk1.8.0_40"
+		export PATH=$JAVA_HOME/bin:$PATH
+
