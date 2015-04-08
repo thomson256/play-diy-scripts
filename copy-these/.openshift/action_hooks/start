@@ -4,13 +4,13 @@
 # $OPENSHIFT_INTERNAL_IP:8080 
 
 
-#java 8
-export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk/jdk1.8.0_40"
-export PATH=$JAVA_HOME:$PATH
+#Java 8
+export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk1.8.0_40"
+export PATH=$JAVA_HOME/bin:$PATH
 
 
 # loads $PLAY_PARAMS
-. ${OPENSHIFT_REPO_DIR}.openshift/action_hooks/load_config
+. ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/load_config
 
 if [[ ! $? -eq 0 ]]; then
 	exit $?
@@ -18,7 +18,7 @@ fi
 
 LOG_FILE="${OPENSHIFT_DIY_LOG_DIR}play.log"
 
-chmod +x ${OPENSHIFT_REPO_DIR}target/start
+chmod +x ${OPENSHIFT_REPO_DIR}/target/universal/stage/bin/${OPENSHIFT_APP_NAME}
 
 APP_COMMAND="${OPENSHIFT_REPO_DIR}/target/universal/stage/bin/${OPENSHIFT_APP_NAME} $PLAY_PARAMS "\
 "-Dhttp.port=${OPENSHIFT_DIY_PORT} "\
@@ -27,3 +27,5 @@ APP_COMMAND="${OPENSHIFT_REPO_DIR}/target/universal/stage/bin/${OPENSHIFT_APP_NA
 
 echo $APP_COMMAND &>> $LOG_FILE
 nohup bash -c "${APP_COMMAND} &>> ${LOG_FILE} 2>&1" &> /dev/null &
+
+echo [Start finished \\o/]
